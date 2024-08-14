@@ -12,7 +12,7 @@ import URLLinks from '@/app/api/links';
 
 
 
-export const UploadFiles = () => {
+const UploadFiles = () => {
     const {SER_BASE_CONNECTION} = URLLinks
 
     const [visible, setVisible] = useState(false);
@@ -92,3 +92,5 @@ export const UploadFiles = () => {
         </div>
     );
 };
+
+export default UploadFiles;
