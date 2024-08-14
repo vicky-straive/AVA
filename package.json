@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "webpack --mode production",
-    "start": "webpack serve --mode development",
+    "build": "next build",
+    "start": "next start",
     "format": "prettier --write \"{app,demo,layout,types}/**/*.{js,ts,tsx,d.ts}\"",
     "lint": "next lint"
   },
@@ -52,10 +52,6 @@
     "sass": "^1.77.8",
     "sass-loader": "^16.0.0",
     "style-loader": "^4.0.0",
-    "ts-loader": "^9.5.1",
-    "webpack": "^5.93.0",
-    "webpack-bundle-analyzer": "^4.10.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "ts-loader": "^9.5.1"
   }
 }
