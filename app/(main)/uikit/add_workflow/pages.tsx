@@ -191,16 +191,12 @@ export const AddWorkflow = () => {
                                 <Divider />
                                 <div className="formgrid grid mt-5">
                                     <div className="field col m-3">
-                                        <FloatLabel>
                                             <label htmlFor="workflowName">Workflow name</label>
                                             <InputText id="workflowName" type="text" value={workflowName} onChange={(e) => setWorkflowName(e.target.value)} />
-                                        </FloatLabel>
                                     </div>
                                     <div className="field col m-3">
-                                        <FloatLabel>
                                             <label htmlFor="createdBy">Created by</label>
                                             <InputText id="createdBy" type="text" value={createdBy} onChange={(e) => setCreatedBy(e.target.value)} />
-                                        </FloatLabel>
                                     </div>
                                 </div>
                             </div>
@@ -365,16 +361,12 @@ export const AddWorkflow = () => {
                                 <Divider />
                                 <div className="formgrid grid mt-5">
                                     <div className="field col m-3">
-                                        <FloatLabel>
                                             <label htmlFor="name2">Workflow name</label>
                                             <InputText id="name2" type="text" disabled value={workflowName} />
-                                        </FloatLabel>
                                     </div>
                                     <div className="field col m-3">
-                                        <FloatLabel>
                                             <label htmlFor="name2">Created by</label>
                                             <InputText id="name2" type="text" disabled value={createdBy} />
-                                        </FloatLabel>
                                     </div>
                                 </div>
                                 <Divider />
