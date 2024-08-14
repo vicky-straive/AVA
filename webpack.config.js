@@ -1,4 +1,5 @@
 const path = require('path');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: './app/layout.tsx',
@@ -36,16 +37,26 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,  // This rule is specifically for handling CSS files
+        test: /\.css$/,
         use: [
-          'style-loader', // Injects styles into the DOM
-          'css-loader',   // Translates CSS into CommonJS modules
+          'style-loader',
+          'css-loader',
         ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/, // Add asset handling
+        type: 'asset/resource',
       },
     ],
   },
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled', // Disable automatic opening of the analyzer, but still generate the report
+      generateStatsFile: true,  // Generate stats.json file for detailed analysis
+    }),
+  ],
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: path.join(__dirname, 'dist'), // Updated to `static` as `contentBase` is deprecated in webpack 5
     compress: true,
     port: 9000,
   },
