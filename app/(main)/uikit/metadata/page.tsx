@@ -7,9 +7,25 @@ import { Divider } from 'primereact/divider';
 import { useRecoilValue } from 'recoil';
 import { metadataState } from '../../../recoil/atoms/atoms';
 
+type Metadata = {
+    frame_rate?: string;
+    video_duration?: string;
+    video_codec?: string;
+    frame_width?: string;
+    frame_height?: string;
+    display_aspect_ratio?: string;
+    video_bit_rate?: string;
+    audio_length?: string;
+    audio_check?: string;
+    audio_bitrate?: string;
+    audio_codec?: string;
+    channels?: string;
+    sample_rate?: string;
+};
+
 export const ViewMetadata = () => {
     const [visible, setVisible] = useState(false);
-    const MetadataDetails = useRecoilValue(metadataState);
+    const MetadataDetails = useRecoilValue<Metadata>(metadataState);
     console.log('metadata from info', MetadataDetails);
     
 

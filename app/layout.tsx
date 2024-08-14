@@ -9,12 +9,12 @@ import { AuthProvider } from '../authcontext';
 
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import 'primeicons/primeicons.css';
 import '../styles/layout/layout.scss';
 import '../styles/demo/Demos.scss';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
+import 'primeicons/primeicons.css';  // Keep this one
+
 
 interface RootLayoutProps {
     children: React.ReactNode;

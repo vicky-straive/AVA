@@ -73,6 +73,22 @@ name: string;
 status: boolean;
 }
 
+export interface Metadata {
+    frame_rate: string;
+    video_duration: string;
+    video_codec: string;
+    frame_width: string;
+    frame_height: string;
+    display_aspect_ratio: string;
+    video_bit_rate: string;
+    audio_length: string;
+    audio_check: string;
+    audio_bitrate: string;
+    audio_codec: string;
+    channels: string;
+    sample_rate: string;
+}
+
 export interface DialogRes {
     status: boolean;
     }
@@ -104,9 +120,23 @@ export const refreshWorkflowListState = atom({
     default: false
 });
 
-export const metadataState = atom<{ data: MetadataDetails[] }>({
-    key: 'currentMetaProcess',
-    default: { data: [] }
+export const metadataState = atom<Metadata>({
+    key: 'metadataState',
+    default: {
+        frame_rate: '',
+        video_duration: '',
+        video_codec: '',
+        frame_width: '',
+        frame_height: '',
+        display_aspect_ratio: '',
+        video_bit_rate: '',
+        audio_length: '',
+        audio_check: '',
+        audio_bitrate: '',
+        audio_codec: '',
+        channels: '',
+        sample_rate: ''
+    }
 });
 
 export const dialogResState = atom<boolean>({
