@@ -20,20 +20,32 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(false);
     const { layoutConfig } = useContext(LayoutContext);
-    const [token, setToken] = useState(sessionStorage.getItem('token') || '');
+    const [token, setToken] = useState('');
 
-    console.log('token', token);
+    useEffect(() => {
+        setToken(sessionStorage.getItem('token') || '');
+    }, []);
+
+    const [url, setUrl] = useState('');
+    const [urlParams, setUrlParams] = useState(new URLSearchParams());
+
+    useEffect(() => {
+        setUrl(window.location.href.split('?')[1] || '');
+        setUrlParams(new URLSearchParams(window.location.href.split('?')[1]));
+    }, []);
 
     const toast = useRef<Toast>(null);
     const { SER_BASE_CONNECTION, MS_SER_CONNECTION, SER_BASE_LOGIN_CONNECTION } = URLLinks;
-    const url = window.location.href.split("?")[1];
-    const urlParams = new URLSearchParams(url);
+    // const url = window.location.href.split('?')[1];
+    // const urlParams = new URLSearchParams(url);
 
     const router = useRouter();
     const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' });
 
     const getToken = () => {
-        window.location.href = `${MS_SER_CONNECTION}/login/with-o365`;
+        if (typeof window !== 'undefined') {
+            window.location.href = `${MS_SER_CONNECTION}/login/with-o365`;
+        }
     };
 
     const handleSignIn = async () => {
@@ -100,7 +112,6 @@ const LoginPage = () => {
                 }, 3000);
             } else {
                 console.log('Login failed. Please check your credentials.');
-                
             }
         } catch (error) {
             console.log('Login failed. Please check your credentials.');

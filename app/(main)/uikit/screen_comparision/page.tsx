@@ -14,16 +14,7 @@ import axios from 'axios';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { mediaFileState } from '../../../recoil/atoms/atoms';
 
-export const Comparedetails =() => {
-    const mediaDetails = useRecoilValue(mediaFileState);
-    return (
-        <div>
-            <p className='text-900 font-medium'>File Name: <span className='text-500 font-medium'>{mediaDetails.data[0].name}</span></p>
-        </div>
-    )
-} 
-
-export default function ScreenComparison() {
+function ScreenComparison() {
     const mediaDetails = useRecoilValue(mediaFileState);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(1); // Set this to 1 to ensure each page represents one image
@@ -158,7 +149,7 @@ export default function ScreenComparison() {
                         ) : (
                             <div className="align-items-center ">
                                 <i className="pi pi-exclamation-triangle flex justify-content-center mb-5" style={{ fontSize: '4.5rem', color: 'var(--primary-color)' }}></i>
-                                <p style={{ textAlign: 'center', }}>No preview available</p>
+                                <p style={{ textAlign: 'center' }}>No preview available</p>
                             </div>
                         )}
                     </SplitterPanel>
@@ -180,3 +171,5 @@ export default function ScreenComparison() {
         </div>
     );
 }
+
+export default ScreenComparison;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Splitter from '../../uikit/splitter/page';
-import { ViewMetadata } from '../../uikit/metadata/page';
+import ViewMetadata from '../../uikit/metadata/page';
 
 const page = () => {
     return (

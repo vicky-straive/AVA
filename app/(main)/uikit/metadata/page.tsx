@@ -23,11 +23,10 @@ type Metadata = {
     sample_rate?: string;
 };
 
-export const ViewMetadata = () => {
+const ViewMetadata = () => {
     const [visible, setVisible] = useState(false);
     const MetadataDetails = useRecoilValue<Metadata>(metadataState);
     console.log('metadata from info', MetadataDetails);
-    
 
     return (
         <div className="flex justify-content-center">
@@ -63,3 +62,6 @@ export const ViewMetadata = () => {
         </div>
     );
 };
+``;
+
+export default ViewMetadata;
