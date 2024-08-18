@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import axios from 'axios';
 
 //Recoil State Management
@@ -17,9 +17,8 @@ import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
 
 import URLLinks from '@/app/api/links';
 
-
 export default function ExpandableRowGroupDemo() {
-    const {SER_BASE_CONNECTION} = URLLinks
+    const { SER_BASE_CONNECTION } = URLLinks;
 
     const setApiFiles = useSetRecoilState(apiProcessList);
     const apiFiles = useRecoilValue(apiProcessList);
@@ -44,8 +43,6 @@ export default function ExpandableRowGroupDemo() {
         }
     }, [refreshWorkflowList]);
 
-  
-
     const getPorcessList = async () => {
         setLoading(true);
         try {
@@ -63,7 +60,6 @@ export default function ExpandableRowGroupDemo() {
             setLoading(false);
         }
     };
-    
 
     const deleteWorkflow = async (id: number, event: React.MouseEvent<HTMLElement>) => {
         confirmPopup({
@@ -98,7 +94,7 @@ export default function ExpandableRowGroupDemo() {
             }
         });
     };
-    
+
     const headerTemplate = (data: ApiProcessFile) => {
         return (
             <React.Fragment>
@@ -129,51 +125,53 @@ export default function ExpandableRowGroupDemo() {
     };
 
     return (
-        <div className="card">
-            <Toast ref={toast} />
-            <ConfirmPopup />
-            {loading ? (
-                <DataTable value={items} className="p-datatable">
-                    <Column field="workflow_name" header="Process List" style={{ width: '20%' }} body={<Skeleton />}></Column>
-                    <Column body={<Skeleton />} field="created_by" header="Created by" style={{ width: '20%' }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
-                    <Column body={<Skeleton />} field="created_date" header="Created Date" style={{ width: '20%' }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
-                </DataTable>
-            ) : (
-                <DataTable
-                    value={customers}
-                    rowGroupMode="subheader"
-                    groupRowsBy="workflow_name"
-                    sortMode="single"
-                    sortField="workflow_name"
-                    sortOrder={1}
-                    expandableRowGroups
-                    expandedRows={expandedRows}
-                    onRowToggle={(e) => setExpandedRows(e.data as React.SetStateAction<never[]>)}
-                    rowGroupHeaderTemplate={headerTemplate}
-                    rowGroupFooterTemplate={footerTemplate}
-                    tableStyle={{ minWidth: '50rem' }}
-                    className="p-datatable-striped"
-                >
-                    <Column field="workflow_name" header="Process List" style={{ width: '20%',  }}></Column>
-                    <Column field="created_by" header="Created by" style={{ width: '20%',  }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
-                    <Column field="created_date" header="Created Date" style={{ width: '20%',  }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
-                    <Column
-                        field="remove"
-                        body={(rowData) => (
-                            <i
-                                className="pi pi-trash"
-                                style={{ fontSize: '1rem', cursor: 'pointer' }}
-                                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'red')}
-                                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '')}
-                                onClick={(e) => deleteWorkflow(rowData.id, e)}
-                            ></i>
-                        )}
-                        header=""
-                        style={{ width: '5%', }}
-                        headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}
-                    />
-                </DataTable>
-            )}
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+            <div className="card">
+                <Toast ref={toast} />
+                <ConfirmPopup />
+                {loading ? (
+                    <DataTable value={items} className="p-datatable">
+                        <Column field="workflow_name" header="Process List" style={{ width: '20%' }} body={<Skeleton />}></Column>
+                        <Column body={<Skeleton />} field="created_by" header="Created by" style={{ width: '20%' }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
+                        <Column body={<Skeleton />} field="created_date" header="Created Date" style={{ width: '20%' }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
+                    </DataTable>
+                ) : (
+                    <DataTable
+                        value={customers}
+                        rowGroupMode="subheader"
+                        groupRowsBy="workflow_name"
+                        sortMode="single"
+                        sortField="workflow_name"
+                        sortOrder={1}
+                        expandableRowGroups
+                        expandedRows={expandedRows}
+                        onRowToggle={(e) => setExpandedRows(e.data as React.SetStateAction<never[]>)}
+                        rowGroupHeaderTemplate={headerTemplate}
+                        rowGroupFooterTemplate={footerTemplate}
+                        tableStyle={{ minWidth: '50rem' }}
+                        className="p-datatable-striped"
+                    >
+                        <Column field="workflow_name" header="Process List" style={{ width: '20%' }}></Column>
+                        <Column field="created_by" header="Created by" style={{ width: '20%' }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
+                        <Column field="created_date" header="Created Date" style={{ width: '20%' }} headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}></Column>
+                        <Column
+                            field="remove"
+                            body={(rowData) => (
+                                <i
+                                    className="pi pi-trash"
+                                    style={{ fontSize: '1rem', cursor: 'pointer' }}
+                                    onMouseEnter={(e) => ((e.target as HTMLElement).style.color = 'red')}
+                                    onMouseLeave={(e) => ((e.target as HTMLElement).style.color = '')}
+                                    onClick={(e) => deleteWorkflow(rowData.id, e)}
+                                ></i>
+                            )}
+                            header=""
+                            style={{ width: '5%' }}
+                            headerClassName={`smooth-header ${expandedRows.length > 0 ? 'visible' : ''}`}
+                        />
+                    </DataTable>
+                )}
+            </div>
+        </Suspense>
     );
 }

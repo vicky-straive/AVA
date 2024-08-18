@@ -1,7 +1,6 @@
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-
 // Interface type set
 export interface UploadedFile {
     name: string;
@@ -45,11 +44,11 @@ export interface ApiProcess {
 }
 
 export interface MediaDetails {
-    id:number;
+    id: number;
     name: string;
     type: string;
     date: string;
-    url: string
+    url: string;
 }
 
 export interface MetadataDetails {
@@ -69,8 +68,8 @@ export interface MetadataDetails {
 }
 
 export interface UserDetails {
-name: string;
-status: boolean;
+    name: string;
+    status: boolean;
 }
 
 export interface Metadata {
@@ -91,7 +90,7 @@ export interface Metadata {
 
 export interface DialogRes {
     status: boolean;
-    }
+}
 
 // State Management
 
@@ -141,21 +140,18 @@ export const metadataState = atom<Metadata>({
 
 export const dialogResState = atom<boolean>({
     key: 'currentState',
-    default: false,
+    default: false
 });
-
-
 
 // Using Recoil-presist - Stores the value in  browser's local storage
 
 const { persistAtom } = recoilPersist({
     key: 'recoil-persist',
-    storage: localStorage,
-  });
-  
-  export const mediaFileState = atom<{ data: MediaDetails[] }>({
+    storage: typeof window !== 'undefined' ? localStorage : undefined
+});
+
+export const mediaFileState = atom<{ data: MediaDetails[] }>({
     key: 'uploadedFilesState',
     default: { data: [] },
-    effects_UNSTABLE: [persistAtom],
-  });
-
+    effects_UNSTABLE: [persistAtom]
+});

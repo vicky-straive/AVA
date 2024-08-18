@@ -121,14 +121,16 @@ const LoginPage = () => {
     };
 
     useEffect(() => {
-        const newArr = [];
-        for (const [key] of urlParams as any) {
-            newArr.push(atob(key));
-        }
-        if (newArr[0] != null) {
-            localStorage.setItem('token', newArr[0]);
-            setToken(newArr[0]);
-            handlePostCall(newArr[0]);
+        if (typeof window !== 'undefined') {
+            const newArr = [];
+            for (const [key] of urlParams as any) {
+                newArr.push(atob(key));
+            }
+            if (newArr[0] != null) {
+                localStorage.setItem('token', newArr[0]);
+                setToken(newArr[0]);
+                handlePostCall(newArr[0]);
+            }
         }
     }, []);
 

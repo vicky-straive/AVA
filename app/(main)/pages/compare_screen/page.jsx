@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ScreenComparision, {Comparedetails} from '../../uikit/screen_comparision/page';
 
 function page() {
     return (
+        <Suspense fallback={<div>Loading...</div>}>
+
         <div className="grid">
             <div className="col-12">
                 <div className="card flex justify-content-between">
@@ -17,6 +19,8 @@ function page() {
             </div>
             <ScreenComparision />
         </div>
+        </Suspense>
+
     );
 }
 

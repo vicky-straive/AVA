@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Button } from 'primereact/button';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
@@ -30,7 +30,7 @@ const ProjectList = () => {
     const [sortKey, setSortKey] = useState(null);
     const [sortOrder, setSortOrder] = useState<0 | 1 | -1 | null>(null);
     const [sortField, setSortField] = useState('');
-console.log("dataval", dataViewValue);
+    console.log('dataval', dataViewValue);
 
     const sortOptions = [
         { label: 'Date Recent to Start', value: '!date' },
@@ -144,14 +144,16 @@ console.log("dataval", dataViewValue);
     };
 
     return (
-        <div className="grid">
-            <div className="col-12">
-                <div className="card">
-                    {/* <h5>DataView</h5> */}
-                    <DataView value={filteredValue || dataViewValue} layout={layout} paginator rows={12} sortOrder={sortOrder} sortField={sortField} itemTemplate={itemTemplate} header={dataViewHeader}></DataView>
+        <Suspense fallback={<div>Loading...</div>}>
+            <div className="grid">
+                <div className="col-12">
+                    <div className="card">
+                        {/* <h5>DataView</h5> */}
+                        <DataView value={filteredValue || dataViewValue} layout={layout} paginator rows={12} sortOrder={sortOrder} sortField={sortField} itemTemplate={itemTemplate} header={dataViewHeader}></DataView>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Suspense>
     );
 };
 
