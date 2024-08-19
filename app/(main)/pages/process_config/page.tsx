@@ -1,9 +1,6 @@
-import React, { Suspense } from 'react';
-// import PickList from '../../uikit/pickList//page';
-import RowGroup from '../../uikit/row_group/page';
-// import { AddWorkflow } from '../../uikit/add_workflow/pages';
-import dynamic from 'next/dynamic';
-const AddWorkflow = dynamic(() => import('../../uikit/add_workflow/pages').then((mod) => mod.AddWorkflow), { ssr: false });
+import React from 'react';
+import RowGroup from '../../uikit/row_group/RowGroup';
+import { AddWorkflow } from '../../uikit/add_workflow/AddWorkflow';
 
 const EmptyPage = () => {
     return (
@@ -14,14 +11,10 @@ const EmptyPage = () => {
                         <h5>Process Config</h5>
                         <p>View list of created process with their details.</p>
                     </div>
-                    <div className="align-self-center">
-                        <AddWorkflow />
-                    </div>
+                    <div className="align-self-center">{/* <AddWorkflow /> */}</div>
                 </div>
 
-                <div className="uploaded-files-container">
-                    <RowGroup />
-                </div>
+                <div className="uploaded-files-container">{/* <RowGroup /> */}</div>
             </div>
         </div>
     );

@@ -48,7 +48,7 @@ const config = {
   }
 };
 
-export default function CreativeEditorSDKComponent() {
+export default function VideoEditor() {
   const cesdk_container = useRef(null);
   const [cesdk, setCesdk] = useState(null);
 

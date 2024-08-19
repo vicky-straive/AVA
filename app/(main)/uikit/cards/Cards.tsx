@@ -12,7 +12,7 @@ import { SpeedDial } from 'primereact/speeddial';
 import { Tooltip } from 'primereact/tooltip';
 import { Dialog } from 'primereact/dialog';
 
-import AssignWorkflow from '../assign_workflow/page';
+import AssignWorkflow from '../assign_workflow/AssignWorkflow';
 
 import axios from 'axios';
 import URLLinks from '@/app/api/links';

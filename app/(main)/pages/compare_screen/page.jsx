@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
-import ScreenComparision, {Comparedetails} from '../../uikit/screen_comparision/page';
+import React from 'react';
+import ScreenComparision, {Comparedetails} from '../../uikit/screen_comparision/ScreenComparision';
 
 function page() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        // <Suspense fallback={<div>Loading...</div>}>
 
         <div className="grid">
             <div className="col-12">
@@ -19,7 +19,7 @@ function page() {
             </div>
             <ScreenComparision />
         </div>
-        </Suspense>
+        // </Suspense>
 
     );
 }
