@@ -22,22 +22,10 @@ const LoginPage = () => {
     const { layoutConfig } = useContext(LayoutContext);
     const [token, setToken] = useState('');
 
-    useEffect(() => {
-        setToken(sessionStorage.getItem('token') || '');
-    }, []);
-
-    const [url, setUrl] = useState('');
-    const [urlParams, setUrlParams] = useState(new URLSearchParams());
-
-    useEffect(() => {
-        setUrl(window.location.href.split('?')[1] || '');
-        setUrlParams(new URLSearchParams(window.location.href.split('?')[1]));
-    }, []);
-
     const toast = useRef<Toast>(null);
-    const { SER_BASE_CONNECTION, MS_SER_CONNECTION, SER_BASE_LOGIN_CONNECTION } = URLLinks;
-    // const url = window.location.href.split('?')[1];
-    // const urlParams = new URLSearchParams(url);
+    const { SER_BASE_CONNECTION, MS_SER_CONNECTION } = URLLinks;
+
+    const [urlParams, setUrlParams] = useState<URLSearchParams | null>(null);
 
     const router = useRouter();
     const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' });
@@ -88,46 +76,43 @@ const LoginPage = () => {
     const handlePostCall = async (token: any) => {
         try {
             const formData = new FormData();
-            const url = window.location.href.split('?')[1];
-            // setToken(url);
+            if (typeof window !== 'undefined') {
+                const url = window.location.href.split('?')[1];
+                const apiUrl = `${MS_SER_CONNECTION}/api/azure-level`;
+                const response = await axios.post(apiUrl, formData, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                formData.append('accessToken', token);
+                console.log('token', token);
 
-            const apiUrl = `${MS_SER_CONNECTION}/api/azure-level`;
-            const response = await axios.post(apiUrl, formData, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    Authorization: `Bearer ${token}`
+                if (response.status === 200) {
+                    const name = response?.data?.name;
+                    setTimeout(() => {
+                        router.push('/');
+                    }, 3000);
+                } else {
+                    console.log('Login failed. Please check your credentials.');
                 }
-            });
-            formData.append('accessToken', token);
-            console.log('token', token);
-
-            if (response.status === 200) {
-                const name = response?.data?.name;
-                const logToken = response;
-                // setUserName(name);
-                // showSuccess(name);
-                // setIsLoginSuccessful(true);
-                setTimeout(() => {
-                    router.push('/');
-                }, 3000);
-            } else {
-                console.log('Login failed. Please check your credentials.');
             }
         } catch (error) {
             console.log('Login failed. Please check your credentials.');
-        } finally {
-            // setIsLoading(false);
         }
     };
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const newArr = [];
-            for (const [key] of urlParams as any) {
+            const url = window.location.href.split('?')[1];
+            const params = new URLSearchParams(url);
+            setUrlParams(params);
+
+            const newArr: string[] = [];
+            params.forEach((value, key) => {
                 newArr.push(atob(key));
-            }
+            });
             if (newArr[0] != null) {
-                localStorage.setItem('token', newArr[0]);
                 setToken(newArr[0]);
                 handlePostCall(newArr[0]);
             }
@@ -171,7 +156,6 @@ const LoginPage = () => {
                                 </a>
                             </div>
                             <Button label="Sign In" className="w-full p-3 text-xl" onClick={handleSignIn}></Button>
-                            {/* <Divider className="mt-5 mb-5" /> */}
                             <Divider layout="horizontal" className="mt-5 mb-5 " align="center">
                                 <b>OR</b>
                             </Divider>

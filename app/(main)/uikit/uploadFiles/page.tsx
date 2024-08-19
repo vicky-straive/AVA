@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, Suspense } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { uploadedFilesState } from '../../../recoil/atoms/atoms';
 import { FileUpload } from 'primereact/fileupload';
@@ -71,17 +71,15 @@ const UploadFiles = () => {
         }
     };
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <div className="flex justify-content-center">
-                <Button label="Upload Files" icon="pi pi-upload" onClick={() => setVisible(true)} />
-                <Toast ref={toast} />
-                <Dialog header="Upload Files" visible={visible} onHide={() => setVisible(false)} style={{ width: '50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
-                    <div className="">
-                        <FileUpload name="files" customUpload uploadHandler={onUpload} multiple accept="video/*,audio/*" maxFileSize={10000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
-                    </div>
-                </Dialog>
-            </div>
-        </Suspense>
+        <div className="flex justify-content-center">
+            <Button label="Upload Files" icon="pi pi-upload" onClick={() => setVisible(true)} />
+            <Toast ref={toast} />
+            <Dialog header="Upload Files" visible={visible} onHide={() => setVisible(false)} style={{ width: '50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
+                <div className="">
+                    <FileUpload name="files" customUpload uploadHandler={onUpload} multiple accept="video/*,audio/*" maxFileSize={10000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
+                </div>
+            </Dialog>
+        </div>
     );
 };
 

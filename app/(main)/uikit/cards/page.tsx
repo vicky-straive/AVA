@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Demo } from '@/types';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
@@ -12,7 +12,7 @@ import { SpeedDial } from 'primereact/speeddial';
 import { Tooltip } from 'primereact/tooltip';
 import { Dialog } from 'primereact/dialog';
 
-import AssignWorkflow from '../assign_workflow/AssignWorkflow';
+import AssignWorkflow from '../assign_workflow/page';
 
 import axios from 'axios';
 import URLLinks from '@/app/api/links';
@@ -37,6 +37,7 @@ export default function MultipleInteractionCard() {
     const digsetVisible = useSetRecoilState(dialogResState);
 
     console.log('digvisible', digvisible);
+    
 
     const sortOptions = [
         { label: 'Date Recent to Start', value: '!date' },
@@ -63,6 +64,13 @@ export default function MultipleInteractionCard() {
             icon: 'pi pi-sitemap',
             command: () => {
                 digsetVisible(true);
+            }
+        },
+        {
+            label: 'Screen Capture',
+            icon: 'pi pi-camera',
+            command: () => {
+                router.push('/pages/screenshot_capture');;
             }
         }
     ];
@@ -221,7 +229,7 @@ export default function MultipleInteractionCard() {
                                 <span className="text-2s">{data.date}</span>
                             </div>
                         </div>
-                        <div className="flex flex-column flex-nowrap" style={{ top: '-165px', right: '35px', position: 'relative' }}>
+                        <div className="flex flex-column flex-nowrap" style={{ top: '-210px', right: '35px', position: 'relative' }}>
                             <Tooltip target=".speeddial-bottom-left .p-speeddial-action" position="right" />
                             <SpeedDial model={items} direction="up" onClick={() => setMediaFile({ data: [{ ...data, id: parseInt(data.id) }] })} className="speeddial-bottom-left" />
                         </div>
@@ -243,39 +251,37 @@ export default function MultipleInteractionCard() {
     };
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <div className="grid">
-                <div className="col-12">
-                    <div className="card scrollpanel-demo">
-                        <div className="flex flex-column md:flex-row gap-5">
-                            <div className="flex-auto">
-                                <ScrollPanel style={{ width: '100%', height: 'calc(77.5vh - 7.7rem)' }} className="custombar1">
-                                    <div className="">
-                                        {/* <h5>DataView</h5> */}
-                                        <DataView value={filteredValue || apiFiles.data} layout={layout} paginator rows={12} sortOrder={sortOrder} sortField={sortField} itemTemplate={itemTemplate} header={dataViewHeader}></DataView>
-                                    </div>
-                                </ScrollPanel>
-                            </div>
+        <div className="grid">
+            <div className="col-12">
+                <div className="card scrollpanel-demo">
+                    <div className="flex flex-column md:flex-row gap-5">
+                        <div className="flex-auto">
+                            <ScrollPanel style={{ width: '100%', height: 'calc(77.5vh - 7.7rem)' }} className="custombar1">
+                                <div className="">
+                                    {/* <h5>DataView</h5> */}
+                                    <DataView value={filteredValue || apiFiles.data} layout={layout} paginator rows={12} sortOrder={sortOrder} sortField={sortField} itemTemplate={itemTemplate} header={dataViewHeader}></DataView>
+                                </div>
+                            </ScrollPanel>
                         </div>
                     </div>
-                    <div className="flex justify-content-center">
-                        {digvisible && (
-                            <Dialog
-                                header="Assign Workflow"
-                                visible={digvisible}
-                                maximizable
-                                style={{ width: '90vw' }}
-                                onHide={() => {
-                                    digsetVisible(false);
-                                }}
-                                breakpoints={{ '960px': '75vw', '641px': '100vw' }}
-                            >
-                                <AssignWorkflow />
-                            </Dialog>
-                        )}
-                    </div>
+                </div>
+                <div className="flex justify-content-center">
+                    {digvisible && (
+                        <Dialog
+                            header="Assign Workflow"
+                            visible={digvisible}
+                            maximizable
+                            style={{ width: '90vw' }}
+                            onHide={() => {
+                                digsetVisible(false);
+                            }}
+                            breakpoints={{ '960px': '75vw', '641px': '100vw' }}
+                        >
+                            <AssignWorkflow />
+                        </Dialog>
+                    )}
                 </div>
             </div>
-        </Suspense>
+        </div>
     );
 }

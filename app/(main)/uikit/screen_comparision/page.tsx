@@ -18,9 +18,10 @@ function ScreenComparison() {
     const mediaDetails = useRecoilValue(mediaFileState);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(1); // Set this to 1 to ensure each page represents one image
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState('1');
     const [paginator, setPaginator] = useState([]);
     const [compareData, setCompareData] = useState([]);
+
     const [imgData, setImgData] = useState('');
     const [txtData, setTxtdata] = useState('');
     const [pageInputTooltip, setPageInputTooltip] = useState("Press 'Enter' key to go to this page.");
@@ -65,17 +66,18 @@ function ScreenComparison() {
 
     const onPageChange = (e: { page: number; first: number }) => {
         const newPage = e.page + 1; // Calculate the new page number
-        setCurrentPage(newPage); // Set the new page number
+
+        setCurrentPage(newPage.toString()); // Set the new page number as a string
         setFirst(e.first); // Update the first index (optional, for UI purposes)
     };
 
-    const onPageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCurrentPage(parseInt(event.target.value));
+    const onPageInputChange = (event: any) => {
+        setCurrentPage(event.target.value);
     };
 
-    const onPageInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, options: any) => {
+    const onPageInputKeyDown = (event: any, options: any) => {
         if (event.key === 'Enter') {
-            const page = parseInt(currentPage.toString());
+            const page = parseInt(currentPage);
 
             if (page < 1 || page > options.totalPages) {
                 setPageInputTooltip(`Value must be between 1 and ${options.totalPages}.`);
@@ -83,7 +85,8 @@ function ScreenComparison() {
                 const _first = (page - 1) * rows;
                 setFirst(_first);
                 setPageInputTooltip("Press 'Enter' key to go to this page.");
-                setCurrentPage(page);
+
+                setCurrentPage(page.toString());
             }
         }
     };
@@ -124,7 +127,7 @@ function ScreenComparison() {
         },
         CurrentPageReport: (options: any) => (
             <span className="mx-3" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
-                Go to <InputText size={1} className="ml-1 mr-1" value={currentPage.toString()} tooltip={pageInputTooltip} onKeyDown={(e) => onPageInputKeyDown(e, options)} onChange={onPageInputChange} /> of {paginator?.length}
+                Go to <InputText size="1" className="ml-1 mr-1" value={currentPage} tooltip={pageInputTooltip} onKeyDown={(e) => onPageInputKeyDown(e, options)} onChange={onPageInputChange} /> of {paginator?.length}
             </span>
         )
     };
@@ -171,5 +174,4 @@ function ScreenComparison() {
         </div>
     );
 }
-
 export default ScreenComparison;

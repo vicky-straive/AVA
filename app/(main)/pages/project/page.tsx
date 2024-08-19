@@ -1,19 +1,17 @@
-import React, { Suspense } from 'react';
-import ListDemo from '../../uikit/project_list/ProjectList';
+import React from 'react';
+import ListDemo from '../../uikit/project_list/page';
 
 const ProjectPage = () => {
     return (
-        // <Suspense fallback={<div>Loading...</div>}>
         <div className="grid">
             <div className="col-12">
                 <div className="card">
                     <h5>Projects</h5>
                     <p>List of all project details will be listed here</p>
                 </div>
-                {/* <ListDemo /> */}
+                <ListDemo />
             </div>
         </div>
-        // </Suspense>
     );
 };
 

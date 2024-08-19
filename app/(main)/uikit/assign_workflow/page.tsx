@@ -11,7 +11,6 @@ import { Toast } from 'primereact/toast';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { mediaFileState, dialogResState } from '../../../recoil/atoms/atoms';
 
-
 const AssignWorkflow = () => {
     const mediaDetails = useRecoilValue(mediaFileState);
     const mediaFiles = mediaDetails.data?.[0]?.url;

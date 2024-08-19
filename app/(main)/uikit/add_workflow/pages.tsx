@@ -30,7 +30,7 @@ interface ProcessItem {
 }
 
 export const AddWorkflow = () => {
-    const {SER_BASE_CONNECTION} = URLLinks
+    const { SER_BASE_CONNECTION } = URLLinks;
 
     const [visible, setVisible] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -42,7 +42,7 @@ export const AddWorkflow = () => {
     const [selectedProcessList, setSelectedProcessList] = useState<string[] | null>(null);
     const [videoList, setVideoList] = useState<ProcessItem[]>([]);
     const [bothList, setBothList] = useState<ProcessItem[]>([]);
-    
+
     const [loading, setLoading] = useState(true);
 
     const setLocalApiProcess = useSetRecoilState(apiProcessState);
@@ -51,8 +51,6 @@ export const AddWorkflow = () => {
     const BothProcesses = Array.isArray(apiLocalApiProcess.data) ? [] : bothList;
     const [selectedProcesses, setSelectedProcesses] = useState<Array<{ id: number; name: string; optional_flag: string }>>([]);
     const setRefreshWorkflowList = useSetRecoilState(refreshWorkflowListState);
-
- 
 
     const [formattedWorkflow, setFormattedWorkflow] = useState<Workflow>({
         workflow_name: '',
@@ -108,7 +106,6 @@ export const AddWorkflow = () => {
             setLoading(false);
         }
     };
-    
 
     const goToNextStep = () => {
         if (workflowName && createdBy) {
@@ -190,12 +187,12 @@ export const AddWorkflow = () => {
                                 <Divider />
                                 <div className="formgrid grid mt-5">
                                     <div className="field col m-3">
-                                            <label htmlFor="workflowName">Workflow name</label>
-                                            <InputText id="workflowName" type="text" value={workflowName} onChange={(e) => setWorkflowName(e.target.value)} />
+                                        <label htmlFor="workflowName">Workflow name</label>
+                                        <InputText id="workflowName" type="text" value={workflowName} onChange={(e) => setWorkflowName(e.target.value)} />
                                     </div>
                                     <div className="field col m-3">
-                                            <label htmlFor="createdBy">Created by</label>
-                                            <InputText id="createdBy" type="text" value={createdBy} onChange={(e) => setCreatedBy(e.target.value)} />
+                                        <label htmlFor="createdBy">Created by</label>
+                                        <InputText id="createdBy" type="text" value={createdBy} onChange={(e) => setCreatedBy(e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -360,12 +357,12 @@ export const AddWorkflow = () => {
                                 <Divider />
                                 <div className="formgrid grid mt-5">
                                     <div className="field col m-3">
-                                            <label htmlFor="name2">Workflow name</label>
-                                            <InputText id="name2" type="text" disabled value={workflowName} />
+                                        <label htmlFor="name2">Workflow name</label>
+                                        <InputText id="name2" type="text" disabled value={workflowName} />
                                     </div>
                                     <div className="field col m-3">
-                                            <label htmlFor="name2">Created by</label>
-                                            <InputText id="name2" type="text" disabled value={createdBy} />
+                                        <label htmlFor="name2">Created by</label>
+                                        <InputText id="name2" type="text" disabled value={createdBy} />
                                     </div>
                                 </div>
                                 <Divider />

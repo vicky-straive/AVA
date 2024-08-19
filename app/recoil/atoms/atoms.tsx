@@ -51,27 +51,6 @@ export interface MediaDetails {
     url: string;
 }
 
-export interface MetadataDetails {
-    audio_bitrate: string;
-    audio_check: string;
-    audio_codec: string;
-    audio_length: string;
-    channels: string;
-    display_aspect_ratio: string;
-    frame_height: number;
-    frame_rate: string;
-    frame_width: number;
-    sample_rate: string;
-    video_bit_rate: string;
-    video_codec: string;
-    video_duration: string;
-}
-
-export interface UserDetails {
-    name: string;
-    status: boolean;
-}
-
 export interface Metadata {
     frame_rate: string;
     video_duration: string;
@@ -86,6 +65,11 @@ export interface Metadata {
     audio_codec: string;
     channels: string;
     sample_rate: string;
+}
+
+export interface UserDetails {
+    name: string;
+    status: boolean;
 }
 
 export interface DialogRes {
@@ -146,8 +130,7 @@ export const dialogResState = atom<boolean>({
 // Using Recoil-presist - Stores the value in  browser's local storage
 
 const { persistAtom } = recoilPersist({
-    key: 'recoil-persist',
-    storage: typeof window !== 'undefined' ? localStorage : undefined
+    key: 'recoil-persist'
 });
 
 export const mediaFileState = atom<{ data: MediaDetails[] }>({

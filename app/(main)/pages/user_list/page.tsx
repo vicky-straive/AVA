@@ -1,11 +1,10 @@
 import React from 'react';
-// import PickList from '../../uikit/pickList//page';
-import RowGroup from '../../uikit/row_group/page';
-import { AddWorkflow } from '../../uikit/add_workflow/pages';
+import UserManagementTable from '../../uikit/user_mgmt/page';
+import AddUser from '../../uikit/add_user/page';
 
 const EmptyPage = () => {
     return (
-        <div className="grid ">
+        <div className="grid">
             <div className="col-12">
                 <div className="card flex justify-content-between upload-header-container">
                     <div>
@@ -13,12 +12,11 @@ const EmptyPage = () => {
                         <p>View list of created process with their details.</p>
                     </div>
                     <div className="align-self-center">
-                        <AddWorkflow />
+                        <AddUser />
                     </div>
                 </div>
-
-                <div className="uploaded-files-container">
-                    <RowGroup />
+                <div>
+                    <UserManagementTable />
                 </div>
             </div>
         </div>
