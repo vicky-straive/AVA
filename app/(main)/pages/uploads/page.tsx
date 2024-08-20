@@ -1,6 +1,6 @@
 import React from 'react';
 import FileListCards from '../../uikit/cards/page';
-import UploadFiles  from '../../uikit/uploadFiles/page';
+import UploadFiles from '../../uikit/uploadFiles/page';
 
 const Uploads = () => {
     return (

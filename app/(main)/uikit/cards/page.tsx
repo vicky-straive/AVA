@@ -65,6 +65,13 @@ export default function MultipleInteractionCard() {
             command: () => {
                 digsetVisible(true);
             }
+        },
+        {
+            label: 'Screen Capture',
+            icon: 'pi pi-camera',
+            command: () => {
+                router.push('/pages/screenshot_capture');;
+            }
         }
     ];
 
@@ -222,7 +229,7 @@ export default function MultipleInteractionCard() {
                                 <span className="text-2s">{data.date}</span>
                             </div>
                         </div>
-                        <div className="flex flex-column flex-nowrap" style={{ top: '-165px', right: '35px', position: 'relative' }}>
+                        <div className="flex flex-column flex-nowrap" style={{ top: '-210px', right: '35px', position: 'relative' }}>
                             <Tooltip target=".speeddial-bottom-left .p-speeddial-action" position="right" />
                             <SpeedDial model={items} direction="up" onClick={() => setMediaFile({ data: [{ ...data, id: parseInt(data.id) }] })} className="speeddial-bottom-left" />
                         </div>

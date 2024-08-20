@@ -34,6 +34,11 @@ const AppMenu = () => {
                     icon: 'pi pi-fw pi-sitemap',
                     to: '/pages/process_config'
                 },
+                // {
+                //     label: 'Screencapture',
+                //     icon: 'pi pi-fw pi-camera',
+                //     to: '/pages/screenshot_capture'
+                // },
             ]
         },
         {
@@ -45,6 +50,11 @@ const AppMenu = () => {
                     label: 'Settings',
                     icon: 'pi pi-fw pi-cog',
                     items: [
+                        {
+                            label: 'User Management',
+                            icon: 'pi pi-fw pi-users',
+                            to: '/pages/user_list'
+                        },
                         {
                             label: 'Logout',
                             icon: 'pi pi-fw pi-sign-out',
