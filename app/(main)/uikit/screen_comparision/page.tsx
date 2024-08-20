@@ -17,6 +17,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { mediaFileState } from '../../../recoil/atoms/atoms';
 
 function ScreenComparison() {
+    const { SER_BASE_CONNECTION } = URLLinks;
     const mediaDetails = useRecoilValue(mediaFileState);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(1); // Set this to 1 to ensure each page represents one image
