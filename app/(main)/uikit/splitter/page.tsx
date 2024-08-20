@@ -85,7 +85,9 @@ const Page: React.FC = () => {
                         <SplitterPanel className="flex align-items-center justify-content-center">
                             {videoUrl1 && (
                                 <video
-                                    ref={(el) => (videoRefs.current[0] = el!)}
+                                    ref={(el) => {
+                                        if (el) videoRefs.current[0] = el;
+                                    }}
                                     key={videoUrl1}
                                     height={'100%'}
                                     width={'100%'}
@@ -99,7 +101,9 @@ const Page: React.FC = () => {
                         <SplitterPanel className="flex align-items-center justify-content-center">
                             {outputUrl ? (
                                 <video
-                                    ref={(el) => (videoRefs.current[1] = el!)}
+                                    ref={(el) => {
+                                        if (el) videoRefs.current[1] = el;
+                                    }}
                                     height={'100%'}
                                     width={'100%'}
                                     onMouseEnter={(e) => e.currentTarget.setAttribute('controls', 'controls')}

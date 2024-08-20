@@ -15,10 +15,14 @@ import { Tag } from 'primereact/tag';
 import { Dialog } from 'primereact/dialog';
 import { InputSwitch } from 'primereact/inputswitch';
 import axios from 'axios';
+import URLLinks  from '@/app/api/links';
+
 
 import { CustomerService } from '../../../../demo/service/CustomerService';
 
 const UserManagementTable = () => {
+    const { SER_BASE_CONNECTION } = URLLinks;
+
     const [visible, setVisible] = useState(false);
     const [checked, setChecked] = useState(true);
     const [selectedRowData, setSelectedRowData] = useState<any>(null);
@@ -61,7 +65,7 @@ const UserManagementTable = () => {
 
     const getUserList = async () => {
         try {
-            const response = await axios.get('https://10.93.10.186/Video-Automation/api/getUserList');
+            const response = await axios.get(`${SER_BASE_CONNECTION}/getUserList`);
             const userData = response.data;
             console.log('response.data', response.data.data);
             setCustomers(response.data.data);
