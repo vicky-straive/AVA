@@ -7,12 +7,15 @@ import { Divider } from 'primereact/divider';
 import { Dropdown, DropdownProps } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import URLLinks  from '@/app/api/links';
 
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { mediaFileState, dialogResState } from '../../../recoil/atoms/atoms';
 
 
 const AssignWorkflow = () => {
+    const {SER_BASE_CONNECTION} = URLLinks
+
     const mediaDetails = useRecoilValue(mediaFileState);
     const mediaFiles = mediaDetails.data?.[0]?.url;
     const [loading, setLoading] = useState(false);
@@ -37,7 +40,7 @@ const AssignWorkflow = () => {
                 media_id: mediaDetails.data[0].id,
                 workflow_id: selectedWorkflow?.WORKFLOW_ID
             };
-            const response = await axios.post('http://10.93.10.186/Video-Automation/api/assignWorkflow', requestData);
+            const response = await axios.post(`${SER_BASE_CONNECTION}/assignWorkflow`, requestData);
             toast.current?.show({
                 severity: 'success',
                 summary: 'Success',
@@ -63,7 +66,7 @@ const AssignWorkflow = () => {
 
     const fetchWorkflowData = async () => {
         try {
-            const response = await axios.get('https://10.93.10.186/Video-Automation/api/getWorkflowData');
+            const response = await axios.get(`${SER_BASE_CONNECTION}/getWorkflowData`);
             setWorkflowList(response.data.data);
         } catch (error) {
             console.error('Error fetching workflow data:', error);

@@ -10,6 +10,8 @@ import { classNames } from 'primereact/utils';
 import { Splitter, SplitterPanel } from 'primereact/splitter';
 import { Image } from 'primereact/image';
 import axios from 'axios';
+import URLLinks  from '@/app/api/links';
+
 
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { mediaFileState } from '../../../recoil/atoms/atoms';
@@ -24,6 +26,8 @@ export const Comparedetails =() => {
 } 
 
 export default function ScreenComparison() {
+    const {SER_BASE_CONNECTION} = URLLinks
+
     const mediaDetails = useRecoilValue(mediaFileState);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(1); // Set this to 1 to ensure each page represents one image
@@ -47,7 +51,7 @@ export default function ScreenComparison() {
 
     const fetchCompareData = async (imgId: any) => {
         try {
-            const apiUrl = 'http://10.93.10.186/Video-Automation/api/getImageExtractedText';
+            const apiUrl = `${SER_BASE_CONNECTION}/getImageExtractedText`;
             const requestParams = { params: { media_id: mediaDetails.data[0]?.id, img_id: imgId } };
             const response = await axios.get(apiUrl, requestParams);
             console.log('compare', response.data);
@@ -61,7 +65,7 @@ export default function ScreenComparison() {
 
     const fetchPaginationID = async () => {
         try {
-            const apiUrl = 'http://10.93.10.186/Video-Automation/api/getImageExtractedTextIds';
+            const apiUrl = `${SER_BASE_CONNECTION}/getImageExtractedTextIds`;
             const requestParams = { params: { id: mediaDetails.data[0]?.id } };
             const response = await axios.get(apiUrl, requestParams);
             console.log('response', response);
